@@ -1,0 +1,18 @@
+---
+layout: no-section
+title: Matthew Scharley
+---
+<section id="about">
+  <h1>Welcome</h1>
+  Hi there. Things will be expanding as I get time, but I've put this up as a quick v1.0 so that I can start writing
+  again as quickly as possible. I really do miss it, so look out for some stuff coming soon.
+</section>
+<section id="posts">
+  <h1>Blog posts</h1>
+  <ul class="posts">
+    {% for post in site.posts %}
+      <li><span class="date">{{ post.date | date_to_string }}</span> -
+        <a href="{{ post.url }}"{% if post.subtitle %} title="{{ post.subtitle | escape }}"{% endif %}>{{ post.title }}</a></li>
+    {% endfor %}
+  </ul>
+</section>
