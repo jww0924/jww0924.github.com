@@ -1,0 +1,106 @@
+使用Sphinx和Github Pages搭建个人Blog
+===========================================
+
+原由
+------------------------
+工作的这些年里Blog也折腾过好几个但基本都是三分钟热度全都阵亡了，在2014个人计划里有一项就是搞一个属于自己的Blog并坚持写下去，养成思考和总结的习惯，因为发现记性真的不太好了。。
+
+说到搭建个人Blog的工具那实在是太多了，最后我选择的是Sphinx+Github Pages
+
+这篇文章主要记录一下配置过程和注意事项。
+
+
+文档编写利器：Sphinx
+------------------------
+.. image:: image/sphinx-log.png
+
+Sphinx 是一个静态文档生成器，
+它的源码文件由 `reStructuredText <http://docutils.sourceforge.net/rst.html>`_ （简称 rst）格式写成，
+rst 格式和 markdown 格式一样，
+都是一种易懂、易学的标记语言（markup language）。
+
+Sphinx 这个项目本身是作为 `Python 官方文档 <http://docs.python.org/3/>`_ 的生成器而出现的，
+它具备了一系列强大的特性，
+使得这个工具非常利于编写文档：
+
+- 通过 `Pygments <http://pygments.org/>`_ ，支持多种语言、多种风格的代码高亮。
+
+- 代码和文件可以内嵌在 rst 文件中，也可以 `从其他文件载入 <http://sphinx-doc.org/markup/code.html?highlight=include#includes>`_ ，这保证了多个文件之间的模块化：比如你可以将一系列文档放在一个文件夹，而将文档中用到的代码放在另一个文件夹，这样不同文件之间的就不会互相干扰。
+
+- 文档本身可以非常简单地 `引用同一文档的其他章节、其他小节，或者文档的任何地方 <http://sphinx-doc.org/markup/inline.html#role-ref>`_ 。
+  
+  更为强大的是， `一个 Sphinx 文档还可以引用另一个 Sphinx 文档的内容 <http://sphinx-doc.org/ext/intersphinx.html>`_ ：举个例子，在《设计与实现》中，我需要添加大量链向《\ `Redis 命令参考 <http://redis.readthedocs.org>`_\ 》的链接，比如 `EVAL <http://redis.readthedocs.org/en/latest/script/eval.html>`_ 。
+  
+  如果每次都要为这些命令手动添加链接，那可就真是既无聊又痛苦 —— 而使用 Sphinx 的跨文档链接就可以轻松地解决这个问题：我只要按照 Sphinx 的格式在 rst 文件中写下一个（简短的）命令，Sphinx 就会自动帮我添加到链向《Redis 命令参考》的链接，非常简单。
+
+- Sphinx 还支持 `一系列插件 <http://sphinx-doc.org/extensions.html>`_ ，通过这些插件，可以增强 Sphinx 本身的功能。
+
+- Sphinx `内置了多个蛮不错的外观样式 <http://sphinx-doc.org/theming.html>`_ ，更换不同的样式、或者自己 `修改样式 <http://sphinx-doc.org/templating.html>`_ 都非常简单。
+
+因为之前自己看到过很多开源项目的文档和电子书都是用它写的，
+比如《\ `Redis 命令与参考 <http://redis.readthedocs.org/>`_\ 》和《\ `Git Extensions帮助文档 <https://git-extensions-documentation.readthedocs.org/en/latest>`_\ 》，
+等等。
+所以我也毫不犹豫地选择了 Sphinx 来作为自己的书写工具。
+
+
+网页评论插件：DISQUS
+------------------------
+.. image:: image/disqus-logo.png
+
+`DISQUS <https://disqus.com/>`_ 是目前比较流行的一个评论插件，国内的话也有多说等类似的工具。
+
+
+源码的管理和托管：git、github 
+-------------------------------------------------------
+.. image:: image/github-logo.png
+
+`Github <https://github.com/>`_ 就不用都多做介绍了，绝对放心可靠。
+
+
+一般开源项目的 Sphinx 文档都会选择托管到ReadTheDocs ，但因为我们这里仅做为个人资料还是放到github比较合适
+
+开始动手
+---------------------
+
+要用到的工具前面已经介绍过了，下面就是搭建的过程了，这里主要讲Windows平台，Linux/Mac下面会更容易些。
+
+1.安装Git和Python以及Sphinx（使用Cygwin）
+
+在Windows平台下经过一番尝试后发现最方便的还是通过Cygwin来安装需要的软件和工具，安装Cygwin过程中关键的是必须把相关依赖的包安装完整了，下面列一下需要安装的包：
+
+git相关包：
+
+git
+
+git-completion： 提供 Git 命令的自动补齐功能。安装该软件包时会自动安装其所依赖的 bash-completion 软件包。
+
+vim： Git 默认的编辑器。
+
+openssh： SSH 客户端，为访问 SSH 协议的版本库提供支持
+
+
+Python相关包：
+
+整个Devel目录
+
+python
+
+setuptools
+
+安装完成后打开Cygwin命令窗口执行：git --version和python -V查看所安装的版本以验证安装是否成功
+
+最后安装我们的主角Sphinx：easy_install -U Sphinx
+
+到这里我们所需要的软件和工具就及安装完成了。
+
+2.Sphinx和Github Pages配置
+
+生成html的命令：make html
+
+结尾
+---------------------
+
+好了，关于如何使用Sphinx和Github Pages搭建个人Blog就写到这里了，虽然可能很多人觉得这Blog也太简陋了吧，是的，我也这么想的，但是我觉得已经能满足我的需要了。
+
+| jww
+| 2014.1.12

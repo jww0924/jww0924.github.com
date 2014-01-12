@@ -1,0 +1,7 @@
+2014 年
+=========
+
+.. toctree::
+   :maxdepth: 2
+
+   how-to-make-your-blog-using-sphinx-and-github-pages

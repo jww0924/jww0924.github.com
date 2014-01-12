@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Coding Life &mdash; Coding Life</title>
+    <title>Search &mdash; Coding Life</title>
     
     <link rel="stylesheet" href="_static/pyramid.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -24,11 +24,18 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="top" title="Coding Life" href="#" />
-    <link rel="next" title="2014 年" href="diary/2014/index.html" />
+    <script type="text/javascript" src="_static/searchtools.js"></script>
+    <link rel="top" title="Coding Life" href="index.html" />
+  <script type="text/javascript">
+    jQuery(function() { Search.loadIndex("searchindex.js"); });
+  </script>
+  
+  <script type="text/javascript" id="searchindexloader"></script>
+  
 <!--[if lte IE 6]>
 <link rel="stylesheet" href="_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
 <![endif]-->
+
 
 
 
@@ -42,10 +49,7 @@
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="diary/2014/index.html" title="2014 年"
-             accesskey="N">next</a> |</li>
-        <li><a href="#">Coding Life</a> &raquo;</li> 
+        <li><a href="index.html">Coding Life</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -54,19 +58,29 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="coding-life">
-<h1>Coding Life<a class="headerlink" href="#coding-life" title="Permalink to this headline">¶</a></h1>
-<p>个人笔记：</p>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="diary/2014/index.html">2014 年</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="diary/2014/how-to-make-your-blog-using-sphinx-and-github-pages.html">使用Sphinx和Github Pages搭建个人Blog</a></li>
-</ul>
-</li>
-</ul>
-</div>
-</div>
-
+  <h1 id="search-documentation">Search</h1>
+  <div id="fallback" class="admonition warning">
+  <script type="text/javascript">$('#fallback').hide();</script>
+  <p>
+    Please activate JavaScript to enable the search
+    functionality.
+  </p>
+  </div>
+  <p>
+    From here you can search these documents. Enter your search
+    words into the box below and click "search". Note that the search
+    function will automatically search for all of the words. Pages
+    containing fewer words won't appear in the result list.
+  </p>
+  <form action="" method="get">
+    <input type="text" name="q" value="" />
+    <input type="submit" value="search" />
+    <span id="search-progress" style="padding-left: 10px"></span>
+  </form>
+  
+  <div id="search-results">
+  
+  </div>
 
 
             <div class="section" id="discuss">
@@ -98,22 +112,6 @@
       </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
-  <h4>Next topic</h4>
-  <p class="topless"><a href="diary/2014/index.html"
-                        title="next chapter">2014 年</a></p>
-<div id="searchbox" style="display: none">
-  <h3>Quick search</h3>
-    <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
           
           
           <div id="links">

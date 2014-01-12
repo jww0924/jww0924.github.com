@@ -1,0 +1,225 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>使用Sphinx和Github Pages搭建个人Blog &mdash; Coding Life</title>
+    
+    <link rel="stylesheet" href="../../_static/pyramid.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Coding Life" href="../../index.html" />
+    <link rel="up" title="2014 年" href="index.html" />
+    <link rel="next" title="《程序员的思维修炼》 笔记" href="../../thinking_and_learning/pragmatic_thinking_and_learning/index.html" />
+    <link rel="prev" title="2014 年" href="index.html" />
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="../../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+
+
+
+
+</head>
+<body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../thinking_and_learning/pragmatic_thinking_and_learning/index.html" title="《程序员的思维修炼》 笔记"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="2014 年"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../index.html">Coding Life</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">2014 年</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="sphinxgithub-pagesblog">
+<h1>使用Sphinx和Github Pages搭建个人Blog<a class="headerlink" href="#sphinxgithub-pagesblog" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2>原由<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>工作的这些年里Blog也折腾过好几个但基本都是三分钟热度全都阵亡了，在2014个人计划里有一项就是搞一个属于自己的Blog并坚持写下去，养成思考和总结的习惯，因为发现记性真的不太好了。。</p>
+<p>说到搭建个人Blog的工具那实在是太多了，最后我选择的是Sphinx+Github Pages</p>
+<p>这篇文章主要记录一下配置过程和注意事项。</p>
+</div>
+<div class="section" id="sphinx">
+<h2>文档编写利器：Sphinx<a class="headerlink" href="#sphinx" title="Permalink to this headline">¶</a></h2>
+<img alt="../../_images/sphinx-log.png" src="../../_images/sphinx-log.png" />
+<p>Sphinx 是一个静态文档生成器，
+它的源码文件由 <a class="reference external" href="http://docutils.sourceforge.net/rst.html">reStructuredText</a> （简称 rst）格式写成，
+rst 格式和 markdown 格式一样，
+都是一种易懂、易学的标记语言（markup language）。</p>
+<p>Sphinx 这个项目本身是作为 <a class="reference external" href="http://docs.python.org/3/">Python 官方文档</a> 的生成器而出现的，
+它具备了一系列强大的特性，
+使得这个工具非常利于编写文档：</p>
+<ul>
+<li><p class="first">通过 <a class="reference external" href="http://pygments.org/">Pygments</a> ，支持多种语言、多种风格的代码高亮。</p>
+</li>
+<li><p class="first">代码和文件可以内嵌在 rst 文件中，也可以 <a class="reference external" href="http://sphinx-doc.org/markup/code.html?highlight=include#includes">从其他文件载入</a> ，这保证了多个文件之间的模块化：比如你可以将一系列文档放在一个文件夹，而将文档中用到的代码放在另一个文件夹，这样不同文件之间的就不会互相干扰。</p>
+</li>
+<li><p class="first">文档本身可以非常简单地 <a class="reference external" href="http://sphinx-doc.org/markup/inline.html#role-ref">引用同一文档的其他章节、其他小节，或者文档的任何地方</a> 。</p>
+<p>更为强大的是， <a class="reference external" href="http://sphinx-doc.org/ext/intersphinx.html">一个 Sphinx 文档还可以引用另一个 Sphinx 文档的内容</a> ：举个例子，在《设计与实现》中，我需要添加大量链向《<a class="reference external" href="http://redis.readthedocs.org">Redis 命令参考</a>》的链接，比如 <a class="reference external" href="http://redis.readthedocs.org/en/latest/script/eval.html">EVAL</a> 。</p>
+<p>如果每次都要为这些命令手动添加链接，那可就真是既无聊又痛苦 —— 而使用 Sphinx 的跨文档链接就可以轻松地解决这个问题：我只要按照 Sphinx 的格式在 rst 文件中写下一个（简短的）命令，Sphinx 就会自动帮我添加到链向《Redis 命令参考》的链接，非常简单。</p>
+</li>
+<li><p class="first">Sphinx 还支持 <a class="reference external" href="http://sphinx-doc.org/extensions.html">一系列插件</a> ，通过这些插件，可以增强 Sphinx 本身的功能。</p>
+</li>
+<li><p class="first">Sphinx <a class="reference external" href="http://sphinx-doc.org/theming.html">内置了多个蛮不错的外观样式</a> ，更换不同的样式、或者自己 <a class="reference external" href="http://sphinx-doc.org/templating.html">修改样式</a> 都非常简单。</p>
+</li>
+</ul>
+<p>因为之前自己看到过很多开源项目的文档和电子书都是用它写的，
+比如《<a class="reference external" href="http://redis.readthedocs.org/">Redis 命令与参考</a>》和《<a class="reference external" href="https://git-extensions-documentation.readthedocs.org/en/latest">Git Extensions帮助文档</a>》，
+等等。
+所以我也毫不犹豫地选择了 Sphinx 来作为自己的书写工具。</p>
+</div>
+<div class="section" id="disqus">
+<h2>网页评论插件：DISQUS<a class="headerlink" href="#disqus" title="Permalink to this headline">¶</a></h2>
+<img alt="../../_images/disqus-logo.png" src="../../_images/disqus-logo.png" />
+<p><a class="reference external" href="https://disqus.com/">DISQUS</a> 是目前比较流行的一个评论插件，国内的话也有多说等类似的工具。</p>
+</div>
+<div class="section" id="gitgithub">
+<h2>源码的管理和托管：git、github<a class="headerlink" href="#gitgithub" title="Permalink to this headline">¶</a></h2>
+<img alt="../../_images/github-logo.png" src="../../_images/github-logo.png" />
+<p><a class="reference external" href="https://github.com/">Github</a> 就不用都多做介绍了，绝对放心可靠。</p>
+<p>一般开源项目的 Sphinx 文档都会选择托管到ReadTheDocs ，但因为我们这里仅做为个人资料还是放到github比较合适</p>
+</div>
+<div class="section" id="id9">
+<h2>开始动手<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+<p>要用到的工具前面已经介绍过了，下面就是搭建的过程了，这里主要讲Windows平台，Linux/Mac下面会更容易些。</p>
+<p>1.安装Git和Python以及Sphinx（使用Cygwin）</p>
+<p>在Windows平台下经过一番尝试后发现最方便的还是通过Cygwin来安装需要的软件和工具，安装Cygwin过程中关键的是必须把相关依赖的包安装完整了，下面列一下需要安装的包：</p>
+<p>git相关包：</p>
+<p>git</p>
+<p>git-completion： 提供 Git 命令的自动补齐功能。安装该软件包时会自动安装其所依赖的 bash-completion 软件包。</p>
+<p>vim： Git 默认的编辑器。</p>
+<p>openssh： SSH 客户端，为访问 SSH 协议的版本库提供支持</p>
+<p>Python相关包：</p>
+<p>整个Devel目录</p>
+<p>python</p>
+<p>setuptools</p>
+<p>安装完成后打开Cygwin命令窗口执行：git &#8211;version和python -V查看所安装的版本以验证安装是否成功</p>
+<p>最后安装我们的主角Sphinx：easy_install -U Sphinx</p>
+<p>到这里我们所需要的软件和工具就及安装完成了。</p>
+<p>2.Sphinx和Github Pages配置</p>
+<p>生成html的命令：make html</p>
+</div>
+<div class="section" id="id10">
+<h2>结尾<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
+<p>好了，关于如何使用Sphinx和Github Pages搭建个人Blog就写到这里了，虽然可能很多人觉得这Blog也太简陋了吧，是的，我也这么想的，但是我觉得已经能满足我的需要了。</p>
+<div class="line-block">
+<div class="line">jww</div>
+<div class="line">2014.1.12</div>
+</div>
+</div>
+</div>
+
+
+
+            <div class="section" id="discuss">
+
+    <h2>
+        留言
+        <a class="headerlink" href="#discuss" title="永久链接至标题">¶</a>
+    </h2>
+
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'jiangww'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+</div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">使用Sphinx和Github Pages搭建个人Blog</a><ul>
+<li><a class="reference internal" href="#id1">原由</a></li>
+<li><a class="reference internal" href="#sphinx">文档编写利器：Sphinx</a></li>
+<li><a class="reference internal" href="#disqus">网页评论插件：DISQUS</a></li>
+<li><a class="reference internal" href="#gitgithub">源码的管理和托管：git、github</a></li>
+<li><a class="reference internal" href="#id9">开始动手</a></li>
+<li><a class="reference internal" href="#id10">结尾</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">2014 年</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../../thinking_and_learning/pragmatic_thinking_and_learning/index.html"
+                        title="next chapter">《程序员的思维修炼》 笔记</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+          
+          
+          <div id="links">
+
+    <h3>Links</h3>
+
+    <ul>
+        <li>
+            <a href="https://github.com/jww0924/">github</a>
+        </li>
+    </ul>
+</div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, jww.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.
+    </div>
+  </body>
+</html>
